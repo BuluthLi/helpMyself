@@ -1,0 +1,110 @@
+<!--标签开始  -->
+<view class='tag'>#{{detail.category}}#</view>
+
+<!--详情开始  -->
+<view class="menssage-item detail">
+  <view class="user-wrap">
+    <image src="{{detail.headImage}}"></image>
+    <view class='user__info'>
+      <view class='name'>{{detail.username}}</view>
+      <view class='time'>{{detail.createTime}}</view>
+    </view>
+  </view>
+  <view class="content">
+    <view class='text'>
+      {{detail.content}}
+    </view>
+    <view class="images" wx:if="{{detail.imgUrl.length > 0}}">
+      <block wx:for="{{detail.imgUrl}}" wx:key="img" wx:for-detail="img">
+        <image class='{{detail.imgUrl.length > 1 ? "img_more" : "img_single"}}' mode='scaleToFill' src="{{imgHost}}{{img}}" data-index="{{index}}"></image>
+      </block>
+    </view>
+  </view>
+  <view class="address" wx:if="{{detail.address}}">
+    <view>
+      <text class="icon i-didian"></text>
+      <text class="text">{{detail.address}}</text>
+    </view>
+    <text>浏览量:{{detail.visitQuantity}}</text>
+  </view>
+</view>
+
+<!--留言部分开始  -->
+<view class='comment-column'>
+  <view>留言({{commentsData.length}})</view>
+  <view bindtap='getLYList'>
+    全部留言
+    <text class='icon i-you' style="font-size:12px"></text>
+  </view>
+</view>
+<view class='comment-list' wx:for="{{commentsData}}">
+  <view class='user-wrap'>
+    <image src="{{item.imgUrl}}"></image>
+    <view class='user__info'>
+      <view class='name'>{{item.name}}</view>
+      <view class='time'>{{item.timeStamp}}</view>
+    </view>
+  </view>
+  <view class="text">{{item.content}}</view>
+</view>
+
+<!--广告位开始  -->
+<view style='width:100%;background:white;'>
+  <view class='ad' style='margin-top:20rpx;margin-bottom:20rpx;background:white;margin:20rpx 5%;width:90%;'>
+    <text style='display:flex;align-items:center;height:70rpx;font-size:30rpx;'>欢乐过六一，赚取积分拿ipone8</text>
+    <image src='{{imgUrls[0].url}}' style='width:100%;' mode='widthFix'></image>
+    <view class='blank' style='width:100%;height:120rpx;'></view>
+  </view>
+</view>
+
+<!--底部固定栏开始  -->
+<view class='button-group'>
+  <view class='button' catchtap='share'>
+    <text class='icon i-fenxiang-da'></text> 分享
+  </view>
+  <view class='button remark' catchtap='liuyan'>
+    <text class='icon i-pinglun'></text> 留言
+  </view>
+  <view class='button' catchtap="onLike" data-type='detail'>
+    <text class='icon i-dianzan {{detail.isPraise ? "i-color" : ""}}'></text> {{detail.praiseQuantity}}
+  </view>
+  <view class='button call' bindtap='call'>
+    <text class='icon i-dianhua'></text> {{detail.call}}
+  </view>
+</view>
+
+<!--底部隐藏固定栏开始  -->
+<view wx:if="{{show}}" class='share-wrap'>
+  <view class='item'>
+    <button open-type='share'>
+      <image src='/images/sharetoF.png' />
+      <text class="text">分享给朋友</text>
+    </button>
+  </view>
+  <view class='item' catchtap='drawImage'>
+    <view class='draw'>
+      <image src='/images/makeS.png' />
+      <text class='text'>生成分享图</text>
+    </view>
+  </view>
+  <view class='close' bindtap='clickback'>关闭</view>
+</view>
+
+<view class='remark-wrap' wx:if="{{liuyan}}">
+  <input placeholder='请输入！' auto-focus bindblur='value' maxlength='100' bindinput='in_value'></input>
+  <button class='btn' catchtap='sendLY'>发送</button>
+</view>
+<!--详情结束  -->
+<!--图片点击详情开始  -->
+<view style='width:{{width}}px;height:{{trueheight}}px;' class='pictures' wx:if="{{toggle}}"></view>
+<view style='width:{{width}}px;height:{{trueheight}}px;' wx:if="{{toggle}}" class='pic_child'>
+  <view style='width:{{width}}px;height:{{trueheight}}px;' class='pic_pos'>
+    <image class='img' src='/images/back.png' bindtap='back' />
+    <view id="navgationBar" style='width:100%;height:{{height}}px' bindtap='toback'>详情</view>
+    <view class='intro' style='color:white;'>第{{bigIndex+1}}/{{bigSrc.length}}张</view>
+    <!--图片显示位置开始  -->
+    <image style='width:{{touch.baseWidth*touch.scale}}px;' mode='widthFix' src='{{bigSrc[bigIndex]}}' bindtouchstart='touchStart' bindtouchmove='touchMove' bindtap='fan' bindtouchend='touchEnd' class='mainAction'></image>
+    <!--图片显示位置结束  -->
+  </view>
+</view>
+<!--图片点击详情结束 -->

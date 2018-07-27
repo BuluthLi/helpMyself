@@ -1,0 +1,28 @@
+page {
+  font-size: 30rpx;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 2rpx;
+}
+
+.none_img {
+  width: 500rpx;
+  transform: translateY(-30%);
+}
+
+.none_text {
+  color: #797979;
+  transform: translateY(-200%);
+  font-size: 28rpx;
+}
+
+.comment-list {
+  padding: 30rpx;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+.comment-list .text {
+  margin: 20rpx 0 0 102rpx;
+  font-size: 28rpx;
+  color: #808080;
+}
